@@ -1,0 +1,62 @@
+name: Frontend Jest CI
+
+on:
+  pull_request:
+    paths:
+      - "frontend/**"
+
+defaults:
+  run:
+    working-directory: frontend
+
+jobs:
+  jest:
+    # プロセスが終了しない限り、デフォルトで job は6時間実行される。
+    # そのため普段の平均実行時間を実行ログから調べ、最大値以上を設定値の目安にする
+    timeout-minutes: 10
+
+    strategy:
+      matrix:
+        node-version: [16.17.0]
+        os: [ubuntu-22.04]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Check out code.
+        uses: actions/checkout@v3
+
+      # - name: Composite Setup yarn
+      #   id: setup
+      #   uses: ./.github/actions/frontend/setup/yarn
+      #   with:
+      #     node-version: ${{ matrix.node-version }}
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        id: node_modules_cache_id
+        with:
+          path: ~/.cache/yarn
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-
+
+      - name: Node_modules install
+        run: yarn
+
+      - name: jest test
+        run: yarn jest
+
+      # ガバレッジレポートを出力する
+      - uses: artiomtr/jest-coverage-report-action@v2.0-rc.3
+        with:
+          working-directory: frontend
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          package-manager: yarn
+          test-script: yarn jest:c

@@ -1,0 +1,9 @@
+// https://zenn.dev/ken505/articles/c049a64f3a2989
+// eslint 一行設定
+// https://qiita.com/nju33/items/2d0cfea4fffbfdbff87a
+{
+  "extends": ["eslint-config-airbnb-typescript", "next", "next/core-web-vitals", "prettier"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  }
+}

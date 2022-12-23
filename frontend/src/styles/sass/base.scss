@@ -1,0 +1,63 @@
+// font-sizeについて
+// https://web-design-textbook.com/recipe/text-responsive.html
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  /* 1440px以上は固定にする */
+  font-size: 24px;
+  scroll-behavior: smooth;
+
+  @media screen and (max-width: 1440px) {
+    font-size: calc((100vw - 320px) / 140 + 16px);
+  }
+
+  /* 650px以下は固定にする */
+  @media screen and (max-width: 650px) {
+    font-size: 18px;
+  }
+}
+
+html {
+  overscroll-behavior-y: none;
+  overflow-y: scroll;
+  /* Firefox対応のスクロールバー非表示コード */
+  scrollbar-width: none;
+  /* Internet Explore対応のスクロールバー非表示コード */
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+body {
+  font-size: 1rem;
+  font-family: 'Playfair Display', serif;
+  line-height: 1.7;
+
+  p {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo,
+      sans-serif;
+  }
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  height: 100%;
+  /* @see https://coliss.com/articles/build-websites/operation/css/css-cover-the-entire-height-of-the-screen.html */
+  min-height: -webkit-fill-available;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* imgはマウスドラッグさせない */
+img {
+  -webkit-user-drag: none;
+}
