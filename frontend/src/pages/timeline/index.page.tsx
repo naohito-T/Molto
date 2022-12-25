@@ -1,35 +1,31 @@
 import type { NextPage, InferGetStaticPropsType } from 'next';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { Layout, TopTplProps } from '@/components/templates';
+import { TimelineTpl, Layout } from '@/components/templates';
 import { Meta } from '@/components/molecules/common';
 import { fullPath } from '@/hooks/helper';
-
-// const TopTpl = dynamic<TopTplProps>(
-//   () => import('@/components/templates/top/top.tpl').then((module) => module.TopTpl),
-//   {
-//     ssr: false,
-//   },
-// );
+import { GuestAPI } from '@/apis/containers';
 
 export const getStaticProps = async () => {
+  const timelineList = await GuestAPI.fetchTimelineList();
+
   return {
-    props: {},
+    props: {
+      timelineList,
+    },
   };
 };
-
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
-const Top: NextPage<Props> = ({}) => {
+const Timeline: NextPage<Props> = ({ timelineList }) => {
   const { asPath } = useRouter();
   return (
     <>
       <Meta pageFullPath={fullPath(asPath)} pageAsPath={asPath} />
-      <Layout showFooter={true} disableRightClick={true}>
-        {/* <TopTpl /> */}
+      <Layout disableRightClick={true}>
+        <TimelineTpl timelineList={timelineList} />
       </Layout>
     </>
   );
 };
 
-export default Top;
+export default Timeline;
