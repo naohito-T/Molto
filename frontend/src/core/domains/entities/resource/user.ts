@@ -1,0 +1,26 @@
+export type User = {
+  id: string;
+  nick_name: string;
+  email: string | null;
+  thumbnail_url: string | null;
+  gender: string | null;
+  birth_date: string | null;
+  is_accepted_policy: boolean;
+  accept_term: boolean;
+  accept_privacy_policy: boolean;
+  is_email_verified: boolean;
+  twitter_id: string | null;
+  google_id: string | null;
+  apple_id: string | null;
+  is_shipping_info_fulfilled: boolean;
+  family_name: string;
+  given_name: string;
+  family_kana: string;
+  given_kana: string;
+  telephone_number: string;
+  zip_code: string;
+  prefecture: string;
+  city: string;
+  street: string;
+  building: string;
+};

@@ -1,6 +1,6 @@
 import type { NextPage, InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
-import { Layout, TopTpl } from '~/views/components/templates';
+import { WorksTpl, Layout } from '~/views/components/templates';
 import { Meta } from '~/views/components/molecules/common';
 import { fullPath } from '~/views/hooks/helper';
 
@@ -9,19 +9,18 @@ export const getStaticProps = async () => {
     props: {},
   };
 };
-
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
-const Top: NextPage<Props> = ({}) => {
+const Works: NextPage<Props> = () => {
   const { asPath } = useRouter();
   return (
     <>
       <Meta pageFullPath={fullPath(asPath)} pageAsPath={asPath} />
-      <Layout showFooter={false} disableRightClick={true}>
-        <TopTpl />
+      <Layout disableRightClick={true}>
+        <WorksTpl />
       </Layout>
     </>
   );
 };
 
-export default Top;
+export default Works;
