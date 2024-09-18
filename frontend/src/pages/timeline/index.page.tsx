@@ -1,8 +1,8 @@
 import type { NextPage, InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
-import { TimelineTpl, Layout } from '@/components/templates';
-import { Meta } from '@/components/molecules/common';
-import { fullPath } from '@/hooks/helper';
+import { TimelineTpl, Layout } from '~/views/components/templates';
+import { Meta } from '~/views/components/molecules/common';
+import { fullPath } from '~/views/hooks/helper';
 import { GuestAPI } from '@/apis/containers';
 
 export const getStaticProps = async () => {
